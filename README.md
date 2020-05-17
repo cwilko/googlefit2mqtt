@@ -1,2 +1,2 @@
-# arlo2mqtt
+# googlefit2mqtt
 
