@@ -25,6 +25,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 
 client.connect(MQTT_HOST, MQTT_PORT, 60)
+client.loop_start()
 
 TODAY = datetime.today().date()
 NOW = datetime.today()
@@ -64,15 +65,14 @@ while True:
             msg = str("health,type=heart_rate,app=googlefit bpm=%d %s" % (int(point["value"][0]["fpVal"]), point["startTimeNanos"]))
             print(msg + " " + str(datetime.utcfromtimestamp(int(point["startTimeNanos"]) // 1000000000)))
             client.publish("telegraf/health/heart",msg)
-            
-        START=END
         
         # Write out last timestamp
         if response["point"]:
             f = open('data/timestamp', 'w')
             f.write("%d" % (int(point["startTimeNanos"])+1) )
             f.close()
-        
+
+            START=str(int(point["startTimeNanos"])+1)
         
         time.sleep(INTERVAL)
             
