@@ -52,6 +52,7 @@ while True:
     
     NOW = datetime.today()
     END = int(time.mktime(NOW.timetuple())*1000000000)
+    print("Until " + str(datetime.utcfromtimestamp(END // 1000000000)))
     DATA_SET = "%s-%s" % (START, END)
     
     try:
@@ -67,9 +68,10 @@ while True:
         START=END
         
         # Write out last timestamp
-        f = open('data/timestamp', 'w')
-        f.write("%d" % (int(point["startTimeNanos"])+1) )
-        f.close()
+        if response["point"]:
+            f = open('data/timestamp', 'w')
+            f.write("%d" % (int(point["startTimeNanos"])+1) )
+            f.close()
         
         
         time.sleep(INTERVAL)
