@@ -62,7 +62,7 @@ while True:
 
             msg = str("health,type=heart_rate,app=googlefit bpm=%d %s" % (int(point["value"][0]["fpVal"]), point["startTimeNanos"]))
             print(msg + " " + str(datetime.utcfromtimestamp(int(point["startTimeNanos"]) // 1000000000)))
-            #client.publish("telegraf/health/heart",msg)
+            client.publish("telegraf/health/heart",msg)
             
         START=END
         
