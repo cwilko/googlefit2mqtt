@@ -10,8 +10,8 @@ branches:
 install:
   - curl -L https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-arm.tar.gz | tar zxvf - -C . && mv qemu-3.0.0+resin-arm/qemu-arm-static .
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - travis_wait 60 docker build -t cwilko/googlefit2mqtt .
+  - travis_wait 60 docker build -t cwilko/googlefit2mqtt:latest .
 
 script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push cwilko/googlefit2mqtt
+  - docker push cwilko/googlefit2mqtt:latest
