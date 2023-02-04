@@ -1,6 +1,8 @@
-FROM arm32v7/python:alpine
+FROM arm64v8/python:3.9-alpine as target-arm64
 
-COPY qemu-arm-static /usr/bin
+FROM arm32v7/python:3.7-alpine as target-armv7
+
+FROM target-$TARGETARCH$TARGETVARIANT
 
 ENV PYTHONUNBUFFERED=1
 
